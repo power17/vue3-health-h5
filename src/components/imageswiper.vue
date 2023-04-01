@@ -4,10 +4,11 @@
     <!-- Swiper -->
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide slide-1" :style="slide1Style">
+            <div class="swiper-slide image-slide-1" :style="slide1Style">
+                <div class="layer-bg"></div>
                 <div class="slide-img"></div>
             </div>
-            <div class="swiper-slide slide-2">
+            <div class="swiper-slide image-slide-2">
                 <div class="slide-img"></div>
             </div>
             <div class="swiper-slide slide-3">
@@ -39,74 +40,81 @@ let swiper
 let slide1Style = reactive({
     width: 0,
 })
-let top = 0
 
 onMounted(() => {
     const swiperDom = document.querySelector('.swiper')
     swiper = new Swiper('.swiper', {
         direction: 'horizontal',
         freeMode: false,
-        on: {
-            slideChangeTransitionEnd: function () {
-                if (this.activeIndex === 1) {
-                    top = this.getTranslate()
-                    animationFun(top)
-                }
-            },
-        }
+
     });
 
 
-
 })
-// let top = 0
-const animationFun = (top) => {
+let top = 0
+const animationFun = () => {
     requestAnimationFrame(() => {
-        top--
-        swiper[0].setTranslate(top)
-        animationFun(top)
+        top = top - 2
+        swiper[1].setTranslate(top)
+        animationFun()
 
     })
 }
-
 let start = () => {
     console.log(111, swiper)
-    swiper[0].slideTo(1)
-
+    swiper[1].slideTo(1)
+    // animationFun()
 }
 defineExpose({
     start
 })
+// let start = reactive({})
+// let start = await afterDomstart()
+// console.log(start)
 
 
 
 </script>
 <style scoped lang="scss">
-.slide-1,
-.slide-2,
-.slide-3,
-.slide-4,
-.slide-5,
-.slide-6,
-.slide-7 {
+.image-slide-1,
+.image-slide-2,
+.image-slide-3,
+.image-slide-4,
+.image-slide-5,
+.image-slide-6,
+.image-slide-7 {
+    background-color: transparent !important;
+
     .slide-img {
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         width: 100%;
         height: 100%;
 
     }
 }
 
-.slide-1 {
+.image-slide-1 {
     .slide-img {
-        background-image: url('./../assets/images/11.jpeg') !important;
+        background-image: url('./../assets/images/ten-year.png') !important;
+        position: absolute;
+        left: 20px;
+        top: 40px;
+        width: 395px;
+        height: 132px;
     }
 }
 
-.slide-2 {
+.image-slide-2 {
+
     .slide-img {
-        background-image: url('./../assets/images/22.jpeg') !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 163px;
+        height: 222px;
+
+        background-image: url('./../assets/images/yin.png') !important;
     }
 }
 

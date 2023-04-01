@@ -1,11 +1,8 @@
+
 const vue2Touch = {
-    install: function(Vue, options) {
-    //   touches.config(options)
-    //   console.log(touches)
-    //   console.log(Vue)
-    //   Vue.directive('touch', tou ches)
-    console.log(11)
-    }
+  install: function(Vue, options) {
+    console.log(Vue,options)
   }
-  export default vue2Touch
-  
+}
+
+export default vue2Touch
