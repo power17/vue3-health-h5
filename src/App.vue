@@ -48,6 +48,11 @@ onMounted(() => {
     console.log("tap");
 
   });
+  //panup
+  hammer.on('panup', function (e) {
+    console.log("panup");
+
+  });
 
 })
 
