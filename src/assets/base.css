@@ -22,6 +22,7 @@ abbr,acronym{border:0}
   /*IE10*/
   user-select: none;
   touch-action: none;
+  pointer-events: initial;
 
 }
 html,body {

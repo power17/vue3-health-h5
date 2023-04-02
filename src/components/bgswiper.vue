@@ -64,9 +64,9 @@ let start = () => {
         top = swiper[0].getTranslate()
         if (!loop) {
             let swiperDom = document.querySelectorAll('.bg-swiper .swiper-slide')
-            console.log([...swiperDom].map(val => val.offsetWidth))
+            // console.log([...swiperDom].map(val => val.offsetWidth))
             swiperDomTotal = [...swiperDom].map(val => val.offsetWidth).reduce((acc, cur) => acc + cur)
-            console.log(swiperDomTotal)
+            // console.log(swiperDomTotal)
             animationFun(top)
             loop = true
         }
@@ -78,13 +78,14 @@ onMounted(() => {
 
     swiper = new Swiper('.swiper', {
         direction: 'horizontal',
-        freeMode: true,
+        // freeMode: true,
+        allowTouchMove: false,
         height: 422,
+
         on: {
             slideChangeTransitionEnd: function () {
                 if (this.activeIndex === 1) {
-                    console.log('transition')
-                    // emits("update:offset", props.speed)
+                    // this.allowTouchMove = false,
                     start()
                 }
             },
@@ -118,15 +119,18 @@ const animationFun = (top) => {
     // console.log(top, props.offset)
     requestAnimationFrame(() => {
         // console.log(props.offset)
+
         if (props.offset) {
+            // 如果滚动小于屏幕高度 把偏移量设置为0
+            top = top + props.offset
             if (Math.abs(top) < clientWh.height) {
                 emits("update:offset", 0)
+                top = Math.abs(top) < clientWh.height ? -clientWh.height : top
             }
-            top = top + props.offset
-            // 开始条件
-            top = Math.abs(top) < clientWh.height ? -clientWh.height : top
+
             // 停止条件
             top = Math.abs(top) >= swiperDomTotal ? -swiperDomTotal : top
+
             // console.log(top)
             swiper[0].setTranslate(top)
         }

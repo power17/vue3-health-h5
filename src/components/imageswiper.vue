@@ -6,7 +6,15 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide image-slide-1">
                 <div class="layer-bg"></div>
-                <div class="slide-img"></div>
+                <transition appear enter-active-class="animated bounceInDown">
+                    <div class="slide-img "></div>
+                </transition>
+                <div class="slide1-mail" @click="emailEven">
+                    <div class="slide1-mail-bottom"></div>
+                    <div class="slide1-mail-before"></div>
+
+                </div>
+
             </div>
             <div class="swiper-slide image-slide-2">
                 <div class="slide-img"></div>
@@ -30,6 +38,10 @@
                 <div class="slide-img"></div>
                 <div class="slide-img2"></div>
             </div>
+            <div class="swiper-slide slide-8">
+                <div class="slide-img"></div>
+                <div class="slide-img2"></div>
+            </div>
 
         </div>
     </div>
@@ -37,23 +49,53 @@
 <script setup>
 import Swiper from 'swiper/swiper-bundle.esm.js';
 import 'swiper/swiper-bundle.css';
-import { nextTick, onMounted, reactive } from 'vue';
-
+import { nextTick, onMounted, reactive, ref } from 'vue';
+import { getClientConfig } from './../utils/utils'
+let emits = defineEmits(["update:offset"])
+const clientWh = getClientConfig()
+let swiperDomTotal // 总高度 
+const props = defineProps({
+    offset: Number,
+    speed: Number
+})
+let emailEven = () => {
+    console.log('emailEven')
+}
 
 let swiper
+let loop = false
+let first = true
+let start = () => {
+    console.log(111, swiper)
+    if (first) {
+        swiper[1].slideTo(1)
+        first = false
+    } else {
+        emits("update:offset", props.speed)
+        swiperDomTotal = swiper[1].slidesGrid[swiper[1].slidesGrid.length - 1]
+        if (!loop) {
+            top = swiper[1].getTranslate()
+            animationFun(top)
+            loop = true
+        }
+    }
 
+    // animationFun()
+
+}
 
 onMounted(() => {
     const swiperDom = document.querySelector('.swiper')
     swiper = new Swiper('.swiper', {
         direction: 'horizontal',
-        freeMode: false,
+        freeMode: true,
+        allowTouchMove: false,
         on: {
             slideChangeTransitionEnd: function () {
                 console.log('transition')
                 if (this.activeIndex === 1) {
-                    top = this.getTranslate()
-                    animationFun(top)
+                    // this.allowTouchMove = false
+                    start()
                 }
             },
         }
@@ -62,26 +104,35 @@ onMounted(() => {
 
 
 })
+// nextTick(() => {
+
+// })
 let top = 0
 const animationFun = () => {
     requestAnimationFrame(() => {
-        top = top - 2
-        swiper[1].setTranslate(top)
+        console.log(top, props.offset)
+        if (props.offset) {
+            top = top + props.offset
+            if (Math.abs(top) < clientWh.height) {
+                emits("update:offset", 0)
+                top = Math.abs(top) < clientWh.height ? -clientWh.height : top
+            }
+            // 停止条件
+            top = Math.abs(top) >= swiperDomTotal ? -swiperDomTotal : top
+
+
+            swiper[1].setTranslate(top)
+
+        }
         animationFun()
 
     })
 }
-let start = () => {
-    console.log(111, swiper)
-    swiper[1].slideTo(1)
-    // animationFun()
-}
+
 defineExpose({
     start
 })
-// let start = reactive({})
-// let start = await afterDomstart()
-// console.log(start)
+
 
 
 
@@ -102,6 +153,7 @@ defineExpose({
         width: 100%;
         height: 100%;
 
+
     }
 }
 
@@ -109,10 +161,58 @@ defineExpose({
     .slide-img {
         background-image: url('./../assets/images/1-image.png') !important;
         position: absolute;
-        left: 20px;
-        top: 40px;
+        left: 46px;
+        top: 82px;
         width: 395px;
         height: 132px;
+    }
+
+
+
+    .slide1-mail {
+        width: 225px;
+        height: 224.5px;
+        background: url(./../assets/images/email-close-bottom.png) no-repeat 0 77px;
+        background-size: contain;
+        position: absolute;
+        top: 24px;
+        right: 22px;
+
+        .slide1-mail-bottom {
+            width: 225px;
+            height: 224.5px;
+            background: url(./../assets/images/email-bottom.png) no-repeat center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-size: contain;
+        }
+
+
+
+        .slide1-mail-before {
+            width: 225.5px;
+            height: 85px;
+            background: url(./../assets/images/email-top.png) no-repeat center;
+            position: absolute;
+            bottom: 56px;
+            left: 0;
+            background-size: contain;
+
+            // transition: all 1s;
+            transform-origin: center top;
+            animation: openMail 2s forwards;
+        }
+
+        @keyframes openMail {
+            0% {
+                transform: rotateX(0deg);
+            }
+
+            100% {
+                transform: rotateX(-180deg);
+            }
+        }
     }
 
 
@@ -242,17 +342,16 @@ defineExpose({
     }
 }
 
+.slide-8 {
+    background: red;
+}
+
 .swiper {
     width: 100%;
     height: 100%;
     transform-origin: center center;
     position: relative;
-    // width: 667px;
-    // height: 375px;
-    // margin-left: -146px;
-    // margin-top: 146px;
-    // margin-left: -146px;
-    // margin-top: 146px;
+
 }
 
 .swiper-slide {

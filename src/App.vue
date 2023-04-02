@@ -1,14 +1,15 @@
 
 
 <template>
-  <div id="touch"></div>
-  <div class="bg-swiper">
-    <bg-swiper ref="bgSwiperDOM" v-model:offset="bgOffset" :speed="bgSpeed" />
-  </div>
+  <div id="touch">
+    <div class="bg-swiper">
+      <bg-swiper ref="bgSwiperDOM" v-model:offset="bgOffset" :speed="bgSpeed" />
+    </div>
 
-  <!-- imageSwiper -->
-  <div class="image-swiper">
-    <image-swiper ref="imageSwiperDOM" />
+    <!-- imageSwiper -->
+    <div class="image-swiper">
+      <image-swiper ref="imageSwiperDOM" v-model:offset="imageOffset" :speed="imageSpeed" />
+    </div>
   </div>
 </template>
 <script setup >
@@ -26,7 +27,9 @@ import ImageSwiper from './components/imageswiper.vue'
 const imageSwiperDOM = ref(null)
 const bgSwiperDOM = ref(null)
 let bgOffset = ref(0)
+let imageOffset = ref(0)
 const bgSpeed = -2
+const imageSpeed = -5
 // console.log(imageSwiperDOM)
 
 
@@ -51,29 +54,35 @@ onMounted(() => {
   hammer.on('swipedown', function (e) {
     console.log("swiperdown");
     bgOffset.value = -bgSpeed
-
+    imageOffset.value = -imageSpeed
   });
   hammer.on('press', function (e) {
     console.log(e)
     e.preventDefault()
     console.log('press')
-    bgOffset.value = bgOffset.value * 4
+    bgOffset.value = bgOffset.value * 6
+    imageOffset.value = imageOffset.value * 3
 
   });
   hammer.on('pressup', function (e) {
     console.log("long press");
-    bgOffset.value = bgOffset.value / 4
+    bgOffset.value = bgOffset.value / 6
+    imageOffset.value = imageOffset.value / 3
   });
-  let pre = bgSpeed
+  let bgPre = bgSpeed
+  let imagePre = imageSpeed
   hammer.on('tap', function (e) {
     if (bgOffset.value) {
-      pre = bgOffset.value
+      bgPre = bgOffset.value
     }
-
-
     console.log('tap')
     // 暂停
-    bgOffset.value = bgOffset.value === 0 ? pre : 0
+    bgOffset.value = bgOffset.value === 0 ? bgPre : 0
+    if (imagePre.value) {
+      imagePre = imagePre.value
+    }
+    imageOffset.value = imageOffset.value === 0 ? imagePre : 0
+
 
   });
   //panup
@@ -84,10 +93,6 @@ onMounted(() => {
 
 })
 
-
-nextTick(() => {
-
-})
 
 
 
