@@ -9,12 +9,7 @@
                 <transition appear enter-active-class="animated bounceInDown">
                     <div class="slide-img "></div>
                 </transition>
-                <div class="slide1-mail" @click="emailEven">
-                    <div class="slide1-mail-bottom"></div>
-                    <div class="slide1-mail-before"></div>
-
-                </div>
-
+                <slide1-email />
             </div>
             <div class="swiper-slide image-slide-2">
                 <div class="slide-img"></div>
@@ -49,6 +44,7 @@
 <script setup>
 import Swiper from 'swiper/swiper-bundle.esm.js';
 import 'swiper/swiper-bundle.css';
+import slide1Email from './imageswiperCom/slide1-email.vue'
 import { nextTick, onMounted, reactive, ref } from 'vue';
 import { getClientConfig } from './../utils/utils'
 let emits = defineEmits(["update:offset"])
@@ -166,55 +162,6 @@ defineExpose({
         width: 395px;
         height: 132px;
     }
-
-
-
-    .slide1-mail {
-        width: 225px;
-        height: 224.5px;
-        background: url(./../assets/images/email-close-bottom.png) no-repeat 0 77px;
-        background-size: contain;
-        position: absolute;
-        top: 24px;
-        right: 22px;
-
-        .slide1-mail-bottom {
-            width: 225px;
-            height: 224.5px;
-            background: url(./../assets/images/email-bottom.png) no-repeat center;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background-size: contain;
-        }
-
-
-
-        .slide1-mail-before {
-            width: 225.5px;
-            height: 85px;
-            background: url(./../assets/images/email-top.png) no-repeat center;
-            position: absolute;
-            bottom: 56px;
-            left: 0;
-            background-size: contain;
-
-            // transition: all 1s;
-            transform-origin: center top;
-            animation: openMail 2s forwards;
-        }
-
-        @keyframes openMail {
-            0% {
-                transform: rotateX(0deg);
-            }
-
-            100% {
-                transform: rotateX(-180deg);
-            }
-        }
-    }
-
 
 }
 
