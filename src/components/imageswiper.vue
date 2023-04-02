@@ -4,7 +4,7 @@
     <!-- Swiper -->
     <div class="swiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide image-slide-1" :style="slide1Style">
+            <div class="swiper-slide image-slide-1">
                 <div class="layer-bg"></div>
                 <div class="slide-img"></div>
             </div>
@@ -41,9 +41,7 @@ import { nextTick, onMounted, reactive } from 'vue';
 
 
 let swiper
-let slide1Style = reactive({
-    width: 0,
-})
+
 
 onMounted(() => {
     const swiperDom = document.querySelector('.swiper')
@@ -52,6 +50,7 @@ onMounted(() => {
         freeMode: false,
         on: {
             slideChangeTransitionEnd: function () {
+                console.log('transition')
                 if (this.activeIndex === 1) {
                     top = this.getTranslate()
                     animationFun(top)
@@ -108,7 +107,7 @@ defineExpose({
 
 .image-slide-1 {
     .slide-img {
-        background-image: url('./../assets/images/ten-year.png') !important;
+        background-image: url('./../assets/images/1-image.png') !important;
         position: absolute;
         left: 20px;
         top: 40px;
@@ -248,10 +247,10 @@ defineExpose({
     height: 100%;
     transform-origin: center center;
     position: relative;
-    width: 667px;
-    height: 375px;
-    margin-left: -146px;
-    margin-top: 146px;
+    // width: 667px;
+    // height: 375px;
+    // margin-left: -146px;
+    // margin-top: 146px;
     // margin-left: -146px;
     // margin-top: 146px;
 }
