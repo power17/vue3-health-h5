@@ -26,5 +26,6 @@ jobs:
         username: 'root'
         password: ${{ secrets.REMOTE_PASSWORLD }}
         port: 22
-        source: "dist/"
+        source: "healtyH5/"
         target: "/root/nginx/html"
+
