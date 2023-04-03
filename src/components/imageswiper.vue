@@ -6,8 +6,8 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide image-slide-1">
                 <div class="layer-bg"></div>
-                <transition appear enter-active-class="animated bounceInDown">
-                    <div class="slide-img "></div>
+                <transition appear enter-active-class="animate__animated animate__bounceInDown">
+                    <div class="slide-img"></div>
                 </transition>
                 <slide1-email />
             </div>
@@ -54,6 +54,7 @@ const props = defineProps({
     offset: Number,
     speed: Number
 })
+let show = ref(false)
 let emailEven = () => {
     console.log('emailEven')
 }
@@ -81,6 +82,7 @@ let start = () => {
 }
 
 onMounted(() => {
+
     const swiperDom = document.querySelector('.swiper')
     swiper = new Swiper('.swiper', {
         direction: 'horizontal',

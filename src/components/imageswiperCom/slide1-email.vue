@@ -1,7 +1,7 @@
 <template>
     <div class="slide1-mail" @click="emailEven">
         <div class="slide1-mail-back" v-if="showBack"></div>
-        <div class="slide1-mail-before rotationX" v-if="showOpenEmailTop"></div>
+        <!-- <div class="slide1-mail-before rotationX" v-if="showOpenEmailTop"></div> -->
         <div class="slide1-mail-paper" :class="{ 'flyOut': isBottomOut }"></div>
         <div class="slide1-mail-bottom"></div>
         <div class="slide1-mail-before" ref="openDom"
@@ -15,7 +15,7 @@ let slide1MailBeforeAnimation = ref(false)
 let isBottomOut = ref(false)
 let showBack = ref(false)
 let showTip = ref(true)
-let showOpenEmailTop = ref(false)
+// let showOpenEmailTop = ref(false)
 let emailEven = () => {
     showTip.value = false
     slide1MailBeforeAnimation.value = true
@@ -29,8 +29,8 @@ onMounted(() => {
     openDom.value.addEventListener("animationend", () => {
         console.log('11')
         showBack.value = true
-        openDom.value.style.opacity = 0
-        showOpenEmailTop.value = true
+        // openDom.value.style.opacity = 0
+        // showOpenEmailTop.value = true
         isBottomOut.value = true
         // setTimeout(() => {
 
@@ -68,6 +68,11 @@ onMounted(() => {
         bottom: 0;
         left: 0;
         background-size: contain;
+
+    }
+
+    .slide1-mail-bottom {
+        transform: translateZ(1px);
     }
 
     .slide1-mail-back {
@@ -98,6 +103,7 @@ onMounted(() => {
     .rotationX {
         transform-origin: center top;
         transform: rotateX(-180deg);
+        opacity: 0;
     }
 
     .slide1-mail-before-anmiation {
@@ -105,6 +111,7 @@ onMounted(() => {
         // transition-property: all;
         // transition: all 1s;
         animation: openMail 1s forwards;
+
     }
 
     @keyframes openMail {
@@ -114,6 +121,7 @@ onMounted(() => {
 
         100% {
             transform: rotateX(-180deg);
+            z-index: -1;
         }
     }
 

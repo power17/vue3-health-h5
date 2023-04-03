@@ -28,8 +28,8 @@ const imageSwiperDOM = ref(null)
 const bgSwiperDOM = ref(null)
 let bgOffset = ref(0)
 let imageOffset = ref(0)
-const bgSpeed = -2
-const imageSpeed = -5
+const bgSpeed = -1
+const imageSpeed = -2
 // console.log(imageSwiperDOM)
 
 
@@ -60,14 +60,14 @@ onMounted(() => {
     console.log(e)
     e.preventDefault()
     console.log('press')
-    bgOffset.value = bgOffset.value * 6
-    imageOffset.value = imageOffset.value * 3
+    bgOffset.value = bgOffset.value * 11
+    imageOffset.value = imageOffset.value * 12
 
   });
   hammer.on('pressup', function (e) {
     console.log("long press");
-    bgOffset.value = bgOffset.value / 6
-    imageOffset.value = imageOffset.value / 3
+    bgOffset.value = bgOffset.value / 11
+    imageOffset.value = imageOffset.value / 12
   });
   let bgPre = bgSpeed
   let imagePre = imageSpeed
