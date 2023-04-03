@@ -35,8 +35,53 @@
             </div>
             <div class="swiper-slide slide-8">
                 <div class="slide-img"></div>
+                <div class="slide-text"></div>
+            </div>
+            <!-- 需要修改 -->
+            <div class="swiper-slide slide-8">
+                <div class="slide-img"></div>
+                <div class="slide-text"></div>
+            </div>
+            <div class="swiper-slide slide-8">
+                <div class="slide-img"></div>
+                <div class="slide-text"></div>
+            </div>
+            <div class="swiper-slide slide-7">
+                <div class="slide-img"></div>
                 <div class="slide-img2"></div>
             </div>
+            <div class="swiper-slide slide-7">
+                <div class="slide-img"></div>
+                <div class="slide-img2"></div>
+            </div>
+            <div class="swiper-slide slide-7">
+                <div class="slide-img"></div>
+                <div class="slide-img2"></div>
+            </div>
+            <div class="swiper-slide slide-5">
+                <div class="slide-img"></div>
+            </div>
+            <div class="swiper-slide slide-6">
+                <div class="slide-img"></div>
+                <div class="slide-img-text"></div>
+            </div>
+            <div class="swiper-slide slide-7">
+                <div class="slide-img"></div>
+                <div class="slide-img2"></div>
+            </div>
+            <div class="swiper-slide slide-8">
+                <div class="slide-img"></div>
+                <div class="slide-text"></div>
+            </div>
+            <div class="swiper-slide slide-7">
+                <div class="slide-img"></div>
+                <div class="slide-img2"></div>
+            </div>
+            <div class="swiper-slide slide-8">
+                <div class="slide-img"></div>
+                <div class="slide-text"></div>
+            </div>
+
 
         </div>
     </div>
@@ -63,7 +108,7 @@ let swiper
 let loop = false
 let first = true
 let start = () => {
-    console.log(111, swiper)
+    // console.log(111, swiper)
     if (first) {
         swiper[1].slideTo(1)
         first = false
@@ -90,7 +135,7 @@ onMounted(() => {
         allowTouchMove: false,
         on: {
             slideChangeTransitionEnd: function () {
-                console.log('transition')
+                // console.log('transition')
                 if (this.activeIndex === 1) {
                     // this.allowTouchMove = false
                     start()
@@ -108,7 +153,7 @@ onMounted(() => {
 let top = 0
 const animationFun = () => {
     requestAnimationFrame(() => {
-        console.log(top, props.offset)
+        // console.log(top, props.offset)
         if (props.offset) {
             top = top + props.offset
             if (Math.abs(top) < clientWh.height) {
@@ -126,9 +171,15 @@ const animationFun = () => {
 
     })
 }
+const dragStart = (y) => {
+    y = y > 0 ? 0 : y
+    swiper[1].setTranslate(y)
+
+}
 
 defineExpose({
-    start
+    start,
+    dragStart
 })
 
 
@@ -244,6 +295,8 @@ defineExpose({
 }
 
 .slide-6 {
+    overflow: visible;
+
     .slide-img {
         width: 492.5px;
         height: 252.5px;
@@ -257,7 +310,7 @@ defineExpose({
 
     .slide-img-text {
         position: absolute;
-        left: 400px;
+        left: 468px;
         bottom: 20px;
         width: 626px;
         height: 327px;
@@ -273,7 +326,7 @@ defineExpose({
         height: 252.5px;
         position: absolute;
         bottom: 20px;
-        left: 10px;
+        left: 72px;
         background-repeat: no-repeat;
         background-size: contain;
         background-image: url('./../assets/images/7-image.png') !important;
@@ -292,7 +345,12 @@ defineExpose({
 }
 
 .slide-8 {
-    background: red;
+    .slide-img {
+        width: 399.5px;
+        height: 301.5px;
+        background-size: contain;
+        background-image: url('./../assets/images/8-image.png') !important;
+    }
 }
 
 .swiper {

@@ -45,6 +45,7 @@ onMounted(() => {
   var square = document.querySelector('#touch');
   var hammer = new Hammer(square);
   hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+  // hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
   hammer.on('swipeup', function (e) {
     imageSwiperDOM.value.start()
     bgSwiperDOM.value.start()
@@ -86,10 +87,37 @@ onMounted(() => {
 
   });
   //panup
-  hammer.on('panup', function (e) {
-    console.log("panup");
+  // let drag = false
+  // document.body.addEventListener('touchstart', function (event) {
+  //   console.log(11)
+  //   drag = true
+  //   event.preventDefault();
+  // }, false);
+  let start = false
+  hammer.on('panmove', function (e) {
+    if (start) return
+    console.log(e.deltaY)
+    // if (!drag) return
+    imageSwiperDOM.value.dragStart(e.deltaY)
+    bgSwiperDOM.value.dragStart(e.deltaY)
 
-  });
+  })
+
+  hammer.on('panend', function () {
+    // 长按后拖动松手 速度无法重置
+    bgOffset.value = bgOffset.value / 11 === bgSpeed ? bgSpeed : bgOffset.value
+    imageOffset.value = imageOffset.value / 12 === imageSpeed ? imageSpeed : imageOffset.value
+    if (!start) {
+      imageSwiperDOM.value.start()
+      bgSwiperDOM.value.start()
+      start = true
+    }
+
+  })
+  // document.body.addEventListener('touchend', function (event) {
+  //   console.log(22)
+  //   event.preventDefault();
+  // }, false);
 
 })
 
@@ -106,7 +134,7 @@ onMounted(() => {
   height: 100%;
   position: absolute;
   z-index: 1000;
-  touch-action: none;
+  // touch-action: none;
 
 
 }

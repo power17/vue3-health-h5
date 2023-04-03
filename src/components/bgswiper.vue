@@ -65,7 +65,9 @@ let start = () => {
         if (!loop) {
             let swiperDom = document.querySelectorAll('.bg-swiper .swiper-slide')
             // console.log([...swiperDom].map(val => val.offsetWidth))
-            swiperDomTotal = [...swiperDom].map(val => val.offsetWidth).reduce((acc, cur) => acc + cur)
+            let swiperDomTotalArr = [...swiperDom].map(val => val.offsetWidth)
+            swiperDomTotal = swiperDomTotalArr.reduce((acc, cur) => acc + cur) - swiperDomTotalArr[0]
+            // console.log(swiperDomTotal, [...swiperDom].map(val => val.offsetWidth))
             // console.log(swiperDomTotal)
             animationFun(top)
             loop = true
@@ -96,21 +98,6 @@ onMounted(() => {
 
 })
 
-// nextTick(() => {
-//     console.log(window.getComputedStyle(document.querySelector('#bg-slide')).width)
-//     console.log(document.querySelector('#bg-slide').offsetWidth,)
-
-//     setTimeout(() => {
-//         const swiperDom = document.querySelectorAll('.bg-swiper .swiper-slide')
-//         console.log([...swiperDom])
-//         let sumDomW = [...swiperDom].reduce((acc, cur) => {
-//             console.log(acc, cur.offsetWidth)
-//             return acc + cur.offsetWidth
-//         }, 0)
-//         console.log(sumDomW)
-//     }, 0)
-
-// })
 
 
 let lastSlideTop
@@ -139,8 +126,13 @@ const animationFun = (top) => {
     })
 }
 
+const dragStart = (y) => {
+    y = y > 0 ? 0 : y
+    swiper[0].setTranslate(y)
 
+}
 defineExpose({
+    dragStart,
     start
 })
 

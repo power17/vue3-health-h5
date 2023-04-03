@@ -25,9 +25,7 @@ let emailEven = () => {
 }
 let openDom = ref(null)
 onMounted(() => {
-    console.log(openDom.value)
     openDom.value.addEventListener("animationend", () => {
-        console.log('11')
         showBack.value = true
         // openDom.value.style.opacity = 0
         // showOpenEmailTop.value = true
