@@ -104,9 +104,10 @@ onMounted(() => {
   })
 
   hammer.on('panend', function () {
+    // todo 
     // 长按后拖动松手 速度无法重置
-    bgOffset.value = bgOffset.value / 11 === bgSpeed ? bgSpeed : bgOffset.value
-    imageOffset.value = imageOffset.value / 12 === imageSpeed ? imageSpeed : imageOffset.value
+    bgOffset.value = Math.abs(bgOffset.value / 11) === Math.abs(bgSpeed) ? bgSpeed : bgOffset.value
+    imageOffset.value = Math.abs(imageOffset.value / 12) === Math.abs(imageSpeed) ? imageSpeed : imageOffset.value
     if (!start) {
       imageSwiperDOM.value.start()
       bgSwiperDOM.value.start()
