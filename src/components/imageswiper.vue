@@ -9,6 +9,7 @@
                 <transition appear enter-active-class="animate__animated animate__bounceInDown">
                     <div class="slide-img"></div>
                 </transition>
+                <slide1-email-text></slide1-email-text>
                 <slide1-email />
             </div>
             <div class="swiper-slide image-slide-2">
@@ -90,6 +91,7 @@
 import Swiper from 'swiper/swiper-bundle.esm.js';
 import 'swiper/swiper-bundle.css';
 import slide1Email from './imageswiperCom/slide1-email.vue'
+import slide1EmailText from './imageswiperCom/slide1-email-text.vue'
 import { nextTick, onMounted, reactive, ref } from 'vue';
 import { getClientConfig } from './../utils/utils'
 let emits = defineEmits(["update:offset"])
@@ -100,9 +102,7 @@ const props = defineProps({
     speed: Number
 })
 let show = ref(false)
-let emailEven = () => {
-    console.log('emailEven')
-}
+
 
 let swiper
 let loop = false

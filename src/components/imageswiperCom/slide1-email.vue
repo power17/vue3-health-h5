@@ -2,7 +2,7 @@
     <div class="slide1-mail" @click="emailEven">
         <div class="slide1-mail-back" v-if="showBack"></div>
         <!-- <div class="slide1-mail-before rotationX" v-if="showOpenEmailTop"></div> -->
-        <div class="slide1-mail-paper" :class="{ 'flyOut': isBottomOut }"></div>
+        <div ref="paperDom" class="slide1-mail-paper" :class="{ 'flyOut': isBottomOut }"></div>
         <div class="slide1-mail-bottom"></div>
         <div class="slide1-mail-before" ref="openDom"
             :class="{ 'slide1-mail-before-anmiation': slide1MailBeforeAnimation }"></div>
@@ -10,7 +10,11 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useCounterStore } from '../../store/imageSwiper';
+const countStore = useCounterStore()
+
+
 let slide1MailBeforeAnimation = ref(false)
 let isBottomOut = ref(false)
 let showBack = ref(false)
@@ -20,20 +24,19 @@ let emailEven = () => {
     showTip.value = false
     slide1MailBeforeAnimation.value = true
 
-
-
 }
 let openDom = ref(null)
+let paperDom = ref(null)
 onMounted(() => {
     openDom.value.addEventListener("animationend", () => {
         showBack.value = true
-        // openDom.value.style.opacity = 0
-        // showOpenEmailTop.value = true
         isBottomOut.value = true
-        // setTimeout(() => {
+        // countStore.changeCount()s
 
-        // }, 500)
     });
+    paperDom.value.addEventListener("animationend", () => {
+        countStore.changeCount()
+    })
 
 })
 
@@ -48,6 +51,7 @@ onMounted(() => {
     position: absolute;
     top: 24px;
     right: 22px;
+    animation: slideInRight 1s forwards;
 
     .slide1-mail-paper {
         width: 225px;
@@ -80,7 +84,7 @@ onMounted(() => {
     }
 
     .flyOut {
-        animation: slideOutUp .5s forwards;
+        animation: slideOutUp .2s forwards;
     }
 
 

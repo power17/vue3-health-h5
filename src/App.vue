@@ -115,10 +115,10 @@ onMounted(() => {
     }
 
   })
-  // document.body.addEventListener('touchend', function (event) {
-  //   console.log(22)
-  //   event.preventDefault();
-  // }, false);
+
+
+
+
 
 })
 
