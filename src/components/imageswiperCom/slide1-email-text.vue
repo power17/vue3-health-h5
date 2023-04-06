@@ -1,5 +1,5 @@
 <template>
-    <div class="slide1-email-text" v-if="showText">
+    <div class="slide1-email-text" v-if="showEmailText">
         <div class="slide1-email-view">
             <img src="./../../assets/images/mail-long-text.png" alt="">
         </div>
@@ -7,14 +7,10 @@
 </template>
 <script setup>
 import { ref, computed } from 'vue'
-import { useCounterStore } from './../../store/imageSwiper/index.js'
-const store = useCounterStore()
-console.log(store, 'store')
-const count = computed(() => store.count)
+import { useEmailTextStore } from './../../store/imageSwiper/index.js'
+const store = useEmailTextStore()
+const showEmailText = computed(() => store.emailText)
 
-
-let showText = count
-console.log(showText)
 
 
 </script>

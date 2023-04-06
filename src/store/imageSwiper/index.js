@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import {ref} from 'vue'
-export const useCounterStore = defineStore('counter', ()=>{
-    const count = ref(false)
-    function changeCount() {
-        count.value = true 
+export const useEmailTextStore = defineStore('emailText', ()=>{
+    const emailText = ref(false)
+    function showEmailText() {
+        emailText.value = true 
     }
-    return {count ,changeCount}
+    return {emailText ,showEmailText}
 })

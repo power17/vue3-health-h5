@@ -11,8 +11,8 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useCounterStore } from '../../store/imageSwiper';
-const countStore = useCounterStore()
+import { useEmailTextStore } from '../../store/imageSwiper';
+const emailTextStore = useEmailTextStore()
 
 
 let slide1MailBeforeAnimation = ref(false)
@@ -31,11 +31,10 @@ onMounted(() => {
     openDom.value.addEventListener("animationend", () => {
         showBack.value = true
         isBottomOut.value = true
-        // countStore.changeCount()s
 
     });
     paperDom.value.addEventListener("animationend", () => {
-        countStore.changeCount()
+        emailTextStore.showEmailText()
     })
 
 })
